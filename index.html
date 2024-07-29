@@ -1,8 +1,15 @@
 <!DOCTYPE html>
 <html>
+
+<head>
+    <link rel="stylesheet" type="text/css" href="styles.css">
+</head>
+
 <body>
-    <label for="myfile">Select a file:</label>
-    <input type="file" id="fileIn" name="myfile" accept=".csv" onchange="parseMTGCollection()">
+    <div id="inputContainer">
+        <label id="inputLabel" for="myfile">Select a file:</label>
+        <input type="file" id="fileIn" name="myfile" accept=".csv" onchange="parseMTGCollection()">
+    </div>
     <div id="cardImageContainer"></div>
 </body>
 
@@ -12,6 +19,8 @@
     function parseMTGCollection() {
         fileIn = document.getElementById("fileIn");
         file = fileIn.files[0];
+
+        document.getElementById('cardImageContainer').innerText = 'Randomizing Card...';
 
         if (file) {
             Papa.parse(file, {
@@ -42,6 +51,7 @@
                             if (response.ok) {
                                 response.json()
                                 .then((cardData) => {
+                                    document.getElementById('cardImageContainer').innerText = '';
                                     displayCardImage(cardData);
                                 });
                             } else {
