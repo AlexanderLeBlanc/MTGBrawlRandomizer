@@ -1,7 +1,49 @@
 <!DOCTYPE html>
 <html>
 <body>
-    
-
+    <label for="myfile">Select a file:</label>
+    <input type="file" id="fileIn" name="myfile" accept=".csv" onchange="parseMTGCollection()">
 </body>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.3.0/papaparse.min.js"></script>
+<script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+<script>
+    function parseMTGCollection() {
+        fileIn = document.getElementById("fileIn");
+        file = fileIn.files[0];
+
+        collection = null;
+
+        if (file) {
+            Papa.parse(file, {
+                header: true,
+                dynamicTyping: true,
+                complete: function(results) {
+                    collection = results;
+                }
+            });
+
+            console.log(collection);
+
+            fetch("Legal_Brawl_Commanders.json")
+            .then(response => response.json())
+            .then(json => {
+                var validCards = [];
+
+                json.data.forEach(card => {
+                    collection.forEach(col_card => {
+                        console.log("Card 1: " + card.name + " Card 2: " + col_card.Card);
+
+                        if (card.name === col_card.Card) {
+                            validCards.push(card.name);
+                        }
+                    });
+                });
+
+                console.log(validCards);
+            });
+        }
+    }
+</script>
+
 </html>
