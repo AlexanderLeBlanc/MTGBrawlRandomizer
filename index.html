@@ -23,13 +23,22 @@
                         var validCards = [];
 
                         json.data.forEach(card => {
-                            results.forEach(col_card => {
+
+                            for(i = 0; i < results.length; i++) {
+                                console.log("Card 1: " + card.name + " Card 2: " + results[i].Card);
+
+                                if (card.name === results[i].Card) {
+                                    validCards.push(card.name);
+                                }
+                            }
+
+                            /*results.forEach(col_card => {
                                 console.log("Card 1: " + card.name + " Card 2: " + col_card.Card);
 
                                 if (card.name === col_card.Card) {
                                     validCards.push(card.name);
                                 }
-                            });
+                            });*/
                         });
 
                         console.log(validCards);
