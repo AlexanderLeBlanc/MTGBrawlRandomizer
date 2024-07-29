@@ -30,4 +30,12 @@ input::file-selector-button {
     align-items: center;
     padding-top: 3em;
 }
+
+#refreshButton {
+    font-weight: bold;
+    color: dodgerblue;
+    padding: 0.5em;
+    border: thin solid grey;
+    border-radius: 3px;
+}
   
