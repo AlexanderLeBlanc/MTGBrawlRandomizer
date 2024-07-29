@@ -23,6 +23,16 @@
                         var validCards = [];
                         console.log(results);
                         json.data.forEach(card => {
+                            results.data.forEach(col_card => {
+                                console.log("Card 1: " + card.name + " Card 2: " + col_card.Card);
+
+                                if (card.name === col_card.Card) {
+                                    validCards.push(card.name);
+                                }
+                            });
+                        });
+
+                        /*json.data.forEach(card => {
 
                             for(i = 0; i < results.length; i++) {
                                 console.log("Card 1: " + card.name + " Card 2: " + results[i].Card);
@@ -32,14 +42,14 @@
                                 }
                             }
 
-                            /*results.forEach(col_card => {
+                            results.forEach(col_card => {
                                 console.log("Card 1: " + card.name + " Card 2: " + col_card.Card);
 
                                 if (card.name === col_card.Card) {
                                     validCards.push(card.name);
                                 }
-                            });*/
-                        });
+                            });
+                        });*/
 
                         console.log(validCards);
                     });
