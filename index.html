@@ -12,35 +12,29 @@
         fileIn = document.getElementById("fileIn");
         file = fileIn.files[0];
 
-        collection = null;
-
         if (file) {
             Papa.parse(file, {
                 header: true,
                 dynamicTyping: true,
                 complete: function(results) {
-                    collection = results;
-                }
-            });
+                    fetch("Legal_Brawl_Commanders.json")
+                    .then(response => response.json())
+                    .then(json => {
+                        var validCards = [];
 
-            console.log(collection);
+                        json.data.forEach(card => {
+                            results.forEach(col_card => {
+                                console.log("Card 1: " + card.name + " Card 2: " + col_card.Card);
 
-            fetch("Legal_Brawl_Commanders.json")
-            .then(response => response.json())
-            .then(json => {
-                var validCards = [];
+                                if (card.name === col_card.Card) {
+                                    validCards.push(card.name);
+                                }
+                            });
+                        });
 
-                json.data.forEach(card => {
-                    collection.forEach(col_card => {
-                        console.log("Card 1: " + card.name + " Card 2: " + col_card.Card);
-
-                        if (card.name === col_card.Card) {
-                            validCards.push(card.name);
-                        }
+                        console.log(validCards);
                     });
-                });
-
-                console.log(validCards);
+                }
             });
         }
     }
